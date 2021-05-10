@@ -96,7 +96,7 @@ void LIS331::readAxes(int16_t &x, int16_t &y, int16_t &z)
 void LIS331::readAllAxes(int16_t &x, int16_t &y, int16_t &z)
 {
   uint8_t data[6]; // create a buffer for our incoming data
-  LIS331_read(OUT_X_L &= AUTO_INC_ADDR, &data, 6);
+  LIS331_read(OUT_X_L | 0x80, data, 6);
   x = data[0] | data[1] << 8;
   y = data[2] | data[3] << 8;
   z = data[4] | data[5] << 8;
