@@ -25,6 +25,7 @@
 #define INT2_SOURCE      0x35
 #define INT2_THS         0x36
 #define INT2_DURATION    0x37
+#define AUTO_INC_ADDR    0x80
 
 class LIS331
 {
@@ -50,6 +51,7 @@ class LIS331
   void setPowerMode(power_mode pmode);
   void setODR(data_rate drate);
   void readAxes(int16_t &x, int16_t &y, int16_t &z);
+  void readAllAxes(int16_t &x, int16_t &y, int16_t &z);
   uint8_t readReg(uint8_t reg_address);
   float convertToG(int maxScale, int reading);
   void setHighPassCoeff(high_pass_cutoff_freq_cfg hpcoeff);
