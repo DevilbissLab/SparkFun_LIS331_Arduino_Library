@@ -33,11 +33,11 @@ void LIS331::axesEnable(bool enable)
   LIS331_read(CTRL_REG1, &data, 1);
   if (enable)
   {
-    data |= 0x07;
+    data |= 0x07;  // - OK(DMD)
   }
   else
   {
-    data &= ~0x07;
+    data &= ~0x07; // - OK(DMD)
   }
   LIS331_write(CTRL_REG1, &data, 1);
 }
@@ -52,7 +52,7 @@ void LIS331::setPowerMode(power_mode pmode)
   //  need to right shift them to make them work. We also want to mask off the
   //  top three bits to zero, and leave the others untouched, so we *only*
   //  affect the power mode bits.
-  data &= ~0xe0; // Clear the top three bits
+  data &= ~0xe0; // Clear the top three bits  - OK(DMD)
   data |= pmode<<5; // set the top three bits to our pmode value
   LIS331_write(CTRL_REG1, &data, 1); // write the new value to CTRL_REG1
 }
@@ -67,7 +67,7 @@ void LIS331::setODR(data_rate drate)
   //  with the appropriate bits in the register. We also want to mask off the
   //  top three and bottom three bits, as those are unrelated to data rate and
   //  we want to only change the data rate.
-  data &=~0x18;     // Clear the two data rate bits
+  data &= ~0x18;     // Clear the two data rate bits  - OK(DMD)
   data |= drate<<3; // Set the two data rate bits appropriately.
   LIS331_write(CTRL_REG1, &data, 1); // write the new value to CTRL_REG1
 }
@@ -95,6 +95,7 @@ void LIS331::readAxes(int16_t &x, int16_t &y, int16_t &z)
 
 void LIS331::readAllAxes(int16_t &x, int16_t &y, int16_t &z)
 {
+  //DMD coded
   uint8_t data[6]; // create a buffer for our incoming data
   LIS331_read(OUT_X_L | 0x80, data, 6);
   x = data[0] | data[1] << 8;
@@ -125,7 +126,7 @@ void LIS331::setHighPassCoeff(high_pass_cutoff_freq_cfg hpcoeff)
   //  to the various constants available for this parameter.
   uint8_t data;
   LIS331_read(CTRL_REG2, &data, 1);
-  data &= ~0xfc;  // Clear the two low bits of the CTRL_REG2
+  data &= 0xfc;  // Clear the two low bits of the CTRL_REG2  - (DMD)
   data |= hpcoeff;
   LIS331_write(CTRL_REG2, &data, 1);
 }
@@ -249,12 +250,12 @@ void LIS331::intSrcConfig(int_sig_src src, uint8_t pin)
   // Enable latching by setting the appropriate bit.
   if (pin == 1)
   {
-    data &= ~0xfc; // clear the low two bits of the register
+    data &= ~0xfc; // clear the low two bits of the register - not checked
     data |= src;
   }
   if (pin == 2)
   {
-    data &= ~0xe7; // clear bits 4:3 of the register
+    data &= ~0xe7; // clear bits 4:3 of the register - not checked
     data |= src<<4;
   }
   LIS331_write(CTRL_REG3, &data, 1);
@@ -264,7 +265,7 @@ void LIS331::setFullScale(fs_range range)
 {
   uint8_t data; 
   LIS331_read(CTRL_REG4, &data, 1);
-  data &= ~0xcf;
+  data &= 0xcf;  // - (DMD)
   data |= range<<4;
   LIS331_write(CTRL_REG4, &data, 1);
 }
