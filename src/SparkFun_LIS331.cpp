@@ -250,12 +250,12 @@ void LIS331::intSrcConfig(int_sig_src src, uint8_t pin)
   // Enable latching by setting the appropriate bit.
   if (pin == 1)
   {
-    data &= ~0xfc; // clear the low two bits of the register - not checked
+    data &= 0xfc; // clear the low two bits of the register - (DMD)
     data |= src;
   }
   if (pin == 2)
   {
-    data &= ~0xe7; // clear bits 4:3 of the register - not checked
+    data &= 0xe7; // clear bits 4:3 of the register - (DMD)
     data |= src<<4;
   }
   LIS331_write(CTRL_REG3, &data, 1);
