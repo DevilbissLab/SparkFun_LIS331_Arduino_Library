@@ -19,6 +19,7 @@ Version History
 
 * [v 1.0.0](https://github.com/sparkfun/SparkFun_LIS331_Arduino_Library/tree/V_1.0.0) - Initial release
 * [v 1.0.1](https://github.com/sparkfun/SparkFun_LIS331_Arduino_Library/tree/v1.0.1) - Fix to [issue #2](https://github.com/sparkfun/SparkFun_LIS331_Arduino_Library/pull/2).
+* [v 1.1.0](https://github.com/DevilbissLab/SparkFun_LIS331_Arduino_Library) - Added a block read (readAllAxes) for accelerometer and addressed issues with bit masking (Fix to [issue #4]).
 
 
 License Information
